@@ -131,15 +131,7 @@ object pptx2png {
 	}
 
 	
-	def meta(args: String){
-	  
-		val tika = new Tika()
-		val t = tika.detect(args)
-
-		System.out.println(t)
-		
-	}
-
+	
 
 		
 	def main(args: Array[String]) {
@@ -151,7 +143,6 @@ object pptx2png {
 		val pos = address.lastIndexOf(".")
 		val ext = address.substring( pos + 1 )
 	
-		meta(address)
 		
 		ext match{
 		  case "pptx" => pptx(address, saveFolder)
