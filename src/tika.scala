@@ -5,7 +5,7 @@ object tika {
   def main(args: Array[String]){
     
 	  	val tika = new Tika()
-		val t = tika.detect("c:\\jot\\nslide.pdf")
+		val t = tika.detect("c:\\jot\\nslide.pdf")		// =>args
 
 		t match{
 	  	  
