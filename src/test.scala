@@ -145,7 +145,7 @@ object pptx2png {
 	
 		
 		ext match{
-		  case "pptx" => pptx(address, saveFolder)
+		  case "pptx" => println(pptx(address, saveFolder))
 		  case "ppt" => ppt(address, saveFolder)
 		}
 		
