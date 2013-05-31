@@ -3,6 +3,11 @@ import org.apache.poi.hslf.HSLFSlideShow
 import java.io.FileInputStream
 import org.apache.poi.hslf.model.Slide
 import org.apache.poi.hslf.model.TextRun
+import org.apache.poi.xslf.usermodel.XMLSlideShow
+import org.apache.poi.xslf.usermodel.XSLFSlide
+import org.apache.poi.xslf.usermodel.XSLFTextRun
+import org.apache.poi.xslf.usermodel.XSLFTextShape
+
 
 object extracttest {
 
@@ -12,8 +17,8 @@ object extracttest {
   		
 		var pptex = new HSLFSlideShow(is) 
 		var ppt = new SlideShow(pptex)
-  		val slide = ppt.getSlides()
   		
+  		val slide = ppt.getSlides()
   		val builder = new StringBuilder()
   	
   		def myFunc(s: Slide, i: Int) = {
@@ -21,7 +26,8 @@ object extracttest {
   			val runs = s.getTextRuns()
   	
   			System.out.println("@@@@@@@"+i+"@@@@@@@")
-  			def myFunc2(r: TextRun, i: Int) = {
+  			
+  			def ext(r: TextRun, i: Int) = {
   				r match{
   				  case null =>
   				    
@@ -32,7 +38,52 @@ object extracttest {
   				}
   			}
   			
-  			runs.zipWithIndex.map{ case(r, i) => myFunc2(r, i)}
+  			runs.zipWithIndex.map{ case(r, i) => ext(r, i)}
+  			
+		}
+	
+		val a = slide.zipWithIndex.map{ case(s, i) => myFunc(s, i)}
+		
+  	}
+  	
+  	def pptx(args: String) = {
+
+  		var is = new FileInputStream(args)
+  		
+  		var ppt = new XMLSlideShow(is)
+  		
+  		val slide = ppt.getSlides()
+  		val builder = new StringBuilder()
+  	
+  		def myFunc(s: XSLFSlide, i: Int) = {
+  			
+
+  			val xShape = s.getPlaceholders()
+  			
+  			
+  			System.out.println("@@@@@@@"+i+"@@@@@@@")
+  			
+  			def shaping(sh: XSLFTextShape, a: Int) = {
+  			  
+  				val xTexts = sh.getTextParagraphs()
+  				
+	  			def ext(r: XSLFTextRun, i: Int) = {
+	  				r match{
+	  				  case null =>
+	
+	  				  case _ =>
+	  				  	val text = r.getText()
+	  				  	builder.append(text)
+	  				  	System.out.println(text)
+	  				}
+	  			}
+
+  				val list = xTexts.get(a).getTextRuns()
+  				
+	  			list.zipWithIndex.map{ case(r, i) => ext(r, i)}
+  			
+  			}
+   			xShape.zipWithIndex.map{ case(sh, a) => shaping(sh, a)}
   			
 		}
 	
@@ -55,7 +106,8 @@ object extracttest {
 		
 		ext match{
 		  case "ppt" => ppt(address)
-		  case _ =>
+		  case "pptx" => pptx(address)
+		  case _ => System.out.println("no match")
 		}
 		
 		
@@ -64,18 +116,3 @@ object extracttest {
 	}
   	
 }
-
-
-/*
-	for(int x=0; x < slides.length; x++)
-    {
-        TextRun[] runs = slides[x].getTextRuns();
-        for(int j=0; j<runs.length; j++) {
-            TextRun run = runs[j];
-            if(run != null) {
-                String text = run.getText();
-                builder.append(text);
-            }
-        }
-    }
-	*/
