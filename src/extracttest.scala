@@ -45,12 +45,14 @@ object extracttest {
 		val a = slide.zipWithIndex.map{ case(s, i) => myFunc(s, i)}
 		
   	}
-  	
+  	/*
   	def pptx(args: String) = {
 
+  		
   		var is = new FileInputStream(args)
   		
   		var ppt = new XMLSlideShow(is)
+
   		
   		val slide = ppt.getSlides()
   		val builder = new StringBuilder()
@@ -58,7 +60,8 @@ object extracttest {
   		def myFunc(s: XSLFSlide, i: Int) = {
   			
 
-  			val xShape = s.getPlaceholders()
+  			val xShape = s.getSlideLayout().getPlaceholders()
+  			
   			
   			
   			System.out.println("@@@@@@@"+i+"@@@@@@@")
@@ -78,9 +81,10 @@ object extracttest {
 	  				}
 	  			}
 
-  				val list = xTexts.get(a).getTextRuns()
+  				val list = xTexts.get(a).getTextRuns().get(0)
   				
-	  			list.zipWithIndex.map{ case(r, i) => ext(r, i)}
+  				System.out.println(list.getText())
+//	  			list.zipWithIndex.map{ case(r, i) => ext(r, i)}
   			
   			}
    			xShape.zipWithIndex.map{ case(sh, a) => shaping(sh, a)}
@@ -91,12 +95,12 @@ object extracttest {
 		
   	}
 		
-  	
+  	*/
 		
 	def main(args: Array[String]) {
 	  
 	    //val address = args(0)
-	    val address = "C:\\jot\\3d.ppt"
+	    val address = "C:\\jot\\3d.pptx"
 	    
 	    
 
@@ -106,7 +110,7 @@ object extracttest {
 		
 		ext match{
 		  case "ppt" => ppt(address)
-		  case "pptx" => pptx(address)
+		  case "pptx" => ppt(address)
 		  case _ => System.out.println("no match")
 		}
 		
