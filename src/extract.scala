@@ -9,11 +9,11 @@ object extract {
  
 	def main(args: Array[String]){
 	  
-		val argss = "c:\\jot\\test.pptx" 
+//		val argss = "c:\\jot\\test.pptx" 
 		val tika = new Tika()
-		val t = tika.detect(argss)		// =>args
+		val t = tika.detect(args(0))		// =>args
 		
-		var is = new FileInputStream(argss)		// =>args
+		var is = new FileInputStream(args(0))		// =>args
 	  
 		
 		t match{

@@ -45,7 +45,7 @@ object extracttest {
 		val a = slide.zipWithIndex.map{ case(s, i) => myFunc(s, i)}
 		
   	}
-  	/*
+  	
   	def pptx(args: String) = {
 
   		
@@ -60,7 +60,7 @@ object extracttest {
   		def myFunc(s: XSLFSlide, i: Int) = {
   			
 
-  			val xShape = s.getSlideLayout().getPlaceholders()
+  			val xShape = s.getPlaceholders()
   			
   			
   			
@@ -68,24 +68,11 @@ object extracttest {
   			
   			def shaping(sh: XSLFTextShape, a: Int) = {
   			  
-  				val xTexts = sh.getTextParagraphs()
+				val xTexts = sh.getTextParagraphs()
   				
-	  			def ext(r: XSLFTextRun, i: Int) = {
-	  				r match{
-	  				  case null =>
-	
-	  				  case _ =>
-	  				  	val text = r.getText()
-	  				  	builder.append(text)
-	  				  	System.out.println(text)
-	  				}
-	  			}
+				System.out.println(sh.getText())
 
-  				val list = xTexts.get(a).getTextRuns().get(0)
-  				
-  				System.out.println(list.getText())
-//	  			list.zipWithIndex.map{ case(r, i) => ext(r, i)}
-  			
+ 
   			}
    			xShape.zipWithIndex.map{ case(sh, a) => shaping(sh, a)}
   			
@@ -95,12 +82,12 @@ object extracttest {
 		
   	}
 		
-  	*/
+  	
 		
 	def main(args: Array[String]) {
 	  
-	    //val address = args(0)
-	    val address = "C:\\jot\\3d.pptx"
+	    val address = args(0)
+//	    val address = "C:\\jot\\3d.pptx"
 	    
 	    
 
@@ -110,7 +97,7 @@ object extracttest {
 		
 		ext match{
 		  case "ppt" => ppt(address)
-		  case "pptx" => ppt(address)
+		  case "pptx" => pptx(address)
 		  case _ => System.out.println("no match")
 		}
 		
